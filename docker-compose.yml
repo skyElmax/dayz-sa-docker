@@ -1,0 +1,23 @@
+services:
+  dayz-server:
+    image: retcon17/dayz-server-sa:frostline
+    container_name: dayz-server
+    stdin_open: true
+    tty: true
+    environment:
+      CONFIGURATION: "Release"
+      CLIENT_MODS: "1559212036 1564026768 2545327648"
+      STEAM_USER: ""
+      STEAM_PASSWORD: ""
+    ports:
+      - 2302:2302/udp
+      - 2303:2303/udp
+      - 2304:2304/udp
+      - 2305:2305/udp
+      - 8766:8766/udp
+      - 27016:27016/udp
+    volumes:
+      - ./steam-server/:/root/servers/dayz-server/
+      - ./server-temp/:/root/servers/temp_dayz_update/
+      - ./server-files/serverDZ.cfg:/root/servers/dayz-server/serverDZ.cfg:ro
+    restart: unless-stopped
