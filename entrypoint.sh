@@ -53,10 +53,10 @@ function updateGame() {
 	+app_update 223350 validate \
 	+quit
 	
-	if [ ${#client_mods[@]} -gt 0 ]; then
+	if [ ${#client_mods} -gt 0 ]; then
 		steamcmd_command="+login $STEAM_USER $STEAM_PASSWORD"
 		
-		for elem in ${client_mods[@]}; do
+		for elem in $client_mods; do
 			echo -e "${GREEN}[DD] Adding mod ${elem} to download queue${NC}"
 			steamcmd_command+=" +workshop_download_item 221100 $elem"
 		done

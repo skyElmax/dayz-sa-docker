@@ -7,13 +7,12 @@ ENV STEAM_PASSWORD=""
 ENV CONFIGURATION="Release"
 
 # install deps
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install curl -y
-RUN apt-get install lib32gcc-s1 -y
-RUN apt-get install tar -y
-RUN apt-get install procps -y
-RUN apt-get install rsync -y
+RUN apt-get update && apt-get install -y \
+    curl \
+    lib32gcc-s1 \
+    tar \
+    procps \
+    rsync
 
 # update steamcmd & validate user permissions
 RUN steamcmd +quit
@@ -26,9 +25,10 @@ EXPOSE 8766/udp 27016/udp
 
 VOLUME /root/servers/dayz-server
 
-COPY entrypoint.sh /root/servers/entrypoint.sh
-RUN chmod +x /root/servers/entrypoint.sh
+WORKDIR /root/servers/
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT [ "/root/servers/entrypoint.sh" ]
+ENTRYPOINT [ "/bin/bash", "/entrypoint.sh" ]
 
 CMD [ "start" ]

@@ -1,7 +1,8 @@
 services:
   dayz-server:
-    image: retcon17/dayz-server-sa:frostline
-    container_name: dayz-server
+    build:
+      context: .
+      dockerfile: Dockerfile
     stdin_open: true
     tty: true
     environment:
